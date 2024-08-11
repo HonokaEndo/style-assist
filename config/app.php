@@ -141,7 +141,6 @@ return [
 
     'maintenance' => [
         'driver' => 'file',
-        // 'store' => 'redis',
     ],
 
     /*
@@ -159,13 +158,12 @@ return [
         /*
          * Package Service Providers...
          */
-
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class, //この行を追加
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
@@ -182,7 +180,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
 ];
