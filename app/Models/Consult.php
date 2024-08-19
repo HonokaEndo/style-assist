@@ -29,4 +29,10 @@ class Consult extends Model
     {
         return $this->hasMany(ConsultReview::class);  
     }
+    //新たに追加したコード
+    public function consultReviews()
+    {
+        return $this->hasMany(ConsultReview::class, 'consult_id');
+    }
+
 }

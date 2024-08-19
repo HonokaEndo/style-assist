@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +12,10 @@ return new class extends Migration
     {
         Schema::create('recommend_reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recommends_id')->constrained()->onDelete('cascade');
+            $table->foreignId('recommend_id')->constrained()->onDelete('cascade'); // カラム名を単数形に修正
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('star');
+            $table->foreignId('parent_id')->nullable()->constrained('recommend_reviews')->onDelete('cascade');
+            $table->integer('star')->nullable();
             $table->string('comment');
             $table->timestamps();
             $table->softDeletes();

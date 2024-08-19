@@ -15,12 +15,11 @@ class ConsultReview extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'consults_id',
-        'consults_review_id',
+        'consult_id',          // consults_id を consult_id に修正
+        'consult_review_id',   // consults_review_id を consult_review_id に修正
         'user_id',
         'comment',
     ];
-
     /**
      * Get the user that owns the consult review.
      */
@@ -30,10 +29,11 @@ class ConsultReview extends Model
     }
     public function consult()
     {
-        return $this->belongsTo(Consult::class);
+        return $this->belongsTo(Consult::class, 'consult_id');
     }
     public function consult_review()
     {
         return $this->belongsTo(ConsultReview::class, 'consult_review_id');
     }
+
 }

@@ -14,7 +14,7 @@ class MyCoordination extends Model
 
     protected $fillable = [
         'user_id',
-        'picture',
+        'image_url',
         'day_id',
     ];
 

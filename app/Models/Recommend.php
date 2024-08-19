@@ -31,4 +31,14 @@ class Recommend extends Model
     {
         return $this->hasMany(RecommendReview::class);  
     }
+    //新たに追加したコード
+    public function recommendReviews()
+    {
+        return $this->hasMany(RecommendReview::class, 'recommend_id');
+    }
+    public function getAverageRatingAttribute()
+    {
+        $average = $this->recommendReviews()->avg('star');
+        return $average ? round($average, 1) : null; // 平均値を計算し、四捨五入する
+    }
 }
