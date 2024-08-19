@@ -20,7 +20,7 @@
         <input type="submit" value="この内容で決定する"/>
     </form>
     <div class="footer">
-        <a href="/consults/index">戻る</a>
+        <a href="/">戻る</a>
     </div>
 </body>
 </html>

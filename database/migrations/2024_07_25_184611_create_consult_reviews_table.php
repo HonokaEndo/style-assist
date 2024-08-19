@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('consult_reviews', function (Blueprint $table) {
             $table->id();
-            //$table->foreignId('consults_id')->constrained()->onDelete('cascade');
-            //$table->integer('parent_id');
             $table->foreignId('consult_id')->constrained('consults')->onDelete('cascade'); // カラム名を修正
-            $table->foreignId('parent_id')->nullable()->constrained('consult_reviews')->onDelete('cascade'); // 必要に応じて外部キー制約を追加
+            $table->foreignId('parent_id')->nullable()->constrained('consult_reviews')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('comment');
             $table->timestamps();

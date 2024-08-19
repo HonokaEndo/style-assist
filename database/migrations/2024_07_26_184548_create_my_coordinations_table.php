@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('my_coordinations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('picture');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('image_url');
             $table->foreignId('day_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
