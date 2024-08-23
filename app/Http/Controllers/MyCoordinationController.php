@@ -17,8 +17,40 @@ class MyCoordinationController extends Controller
         return view('my_coordinations.mycoindex', compact('days'));
     }
 
+    // public function store(Request $request, MyCoordination $my_coordination)
+    // {
+    //     // フォームからの入力データを取得
+    //     $input = $request->all();
+    //     $input['user_id'] = auth()->id(); // 現在認証されているユーザーのIDを設定
+    
+    //     // 画像をCloudinaryにアップロードし、URLを取得
+    //     if ($request->hasFile('image')) {
+    //         $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+    //         $input['image_url'] = $image_url; // 'picture' フィールドに画像のURLを設定
+    //     } else {
+    //         return back()->withErrors(['image' => '画像がアップロードされていません。']);
+    //     }
+    
+    //     // MyCoordinationモデルにデータを保存
+    //     $my_coordination->fill($input)->save();
+    
+    //     // 投稿詳細ページにリダイレクト
+    //     return redirect('/my_coordinations/' . $my_coordination->id);
+        
+    // }
+    
     public function store(Request $request, MyCoordination $my_coordination)
     {
+        // 現在のユーザーIDと曜日IDで既存の写真を確認
+        $existingCoordination = MyCoordination::where('user_id', auth()->id())
+                                              ->where('day_id', $request->input('day_id'))
+                                              ->first();
+    
+        if ($existingCoordination) {
+            // 既に写真が保存されている場合のエラーメッセージ
+            return back()->withErrors(['day_id' => 'この曜日にはすでに写真が保存されています。写真を削除してから新しい写真を保存してください。']);
+        }
+    
         // フォームからの入力データを取得
         $input = $request->all();
         $input['user_id'] = auth()->id(); // 現在認証されているユーザーのIDを設定
@@ -36,8 +68,8 @@ class MyCoordinationController extends Controller
     
         // 投稿詳細ページにリダイレクト
         return redirect('/my_coordinations/' . $my_coordination->id);
-        
     }
+
 
     
     public function show(MyCoordination $my_coordination)

@@ -1,42 +1,45 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>マイページ</title>
+<!--<!DOCTYPE HTML>-->
+<!--<html lang="ja">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>マイページ</title>-->
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
-<body>
-    <div class="content">
-        <div class="content__post">
+<!--    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="body_content">
+        <div class="content">
+            <div class="content__post">
             <h3>マイページ</h3>
-
-            @foreach($days as $day)
-                <div class="day-section">
-                    <h4>{{ $day->name }}</h4>
-
-                    @php
-                        $coordination = $my_coordinations->firstWhere('day_id', $day->id);
-                    @endphp
-
-                    @if($coordination)
-                        <img src="{{ $coordination->image_url }}" alt="Image">
-                    @else
-                        <p>写真はありません。</p>
-                    @endif
-                </div>
-            @endforeach
-
+            <table class="table">
+                <tr>
+                    @foreach($days as $day)
+                        <th>{{ $day->name }}</th>
+                    @endforeach
+                </tr>
+                <tr>
+                    @foreach($days as $day)
+                        <td>
+                            @php
+                                $coordination = $my_coordinations->firstWhere('day_id', $day->id);
+                            @endphp
+    
+                            @if($coordination)
+                                <img src="{{ $coordination->image_url }}" alt="Image" class="fixed-high-size">
+                            @else
+                                <p>写真はありません。</p>
+                            @endif
+                        </td>
+                    @endforeach
+                </tr>
+            </table>
+            </div>
         </div>
     </div>
-    <div class="footer">
-        <a href="/my_coordinations/index">服を保存する</a>
-        <a href="/my_coordinations/delete">服を削除する</a>
-        <a href="/consults/index">相談する</a>
-        <a href="/recommends/index">おすすめする</a>
-        <a href="/home">ホーム画面</a>
-        <br>
-        <a href="/home">戻る</a>
-    </div>
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
+@endsection

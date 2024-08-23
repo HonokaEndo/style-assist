@@ -1,7 +1,26 @@
-body{
-    color:red;
+.fixed-top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* 他のコンテンツよりも前面に表示するためにz-indexを設定 */
+    background-color: #ffffff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* 少しの影を追加 */
 }
 
-mypage {
-    display: flex;
+.body_content {
+    padding-top: 5rem !important;; /* タイトルバーの下に表示する為のパディングを追加 */
+    padding: 2rem;
+}
+
+.fixed-size {
+    width: 100px;
+    height: auto;
+    object-fit: fill; /* 画像が枠に収まるように表示 */
+}
+
+.fixed-high-size {
+    width: auto;
+    height: 220px;
+    object-fit: fill; /* 画像が枠に収まるように表示 */
 }
