@@ -1,39 +1,33 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>全ての投稿</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
-<body>
-    <h1>おすすめコーナー</h1>
-    <div class="posts">
-        @foreach($recommends as $recommend)
-            <div class="post">
-                <h3>おすすめ内容</h3>
-                <p>{{ $recommend->body }}</p>
-                @if($recommend->image_url)
-                    <img src="{{ $recommend->image_url }}" alt="投稿された画像">
-                @endif
-        
-                @php
-                    $averageRating = $recommend->recommendReviews()->avg('star');
-                @endphp
-        
-                @if($averageRating)
-                    <p>平均評価: {{ round($averageRating, 1) }} / 5</p>
-                @else
-                    <p>評価するための十分な値がありません。</p>
-                @endif
-        
-                <a href="/recommends/{{ $recommend->id }}/comment">コメントする</a>
-            </div>
-            <hr>
-        @endforeach
+@extends('layouts.app')
+
+@section('content')
+    <div class="body_content">
+        <h1>おすすめコーナー</h1>
+        <!-- ユーザー選択プルダウンメニュー -->
+        <form action="{{ url('/recommends/all') }}" method="GET">
+            <label for="user_id">ユーザーを選択してください:</label>
+            <select name="user_id" id="user_id" onchange="this.form.submit()">
+                <option value="">すべての投稿を表示</option>
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}" {{ (isset($selectedUserId) && $selectedUserId == $user->id) ? 'selected' : '' }}>
+                        {{ $user->name }} <!-- ここにユーザー名が表示されます -->
+                    </option>
+                @endforeach
+            </select>
+        </form>
+
+        <!-- 投稿一覧 -->
+        <div class="posts">
+            @foreach($recommends as $recommend)
+                <div class="post">
+                    <p>{{ $recommend->body }}</p>
+                    @if($recommend->image_url)
+                        <img src="{{ $recommend->image_url }}" alt="投稿された画像" class="fixed-size">
+                    @endif
+                    <a href="/recommends/{{ $recommend->id }}/comment">コメントする</a> <!-- コメントするボタン -->
+                </div>
+                <hr>
+            @endforeach
+        </div>
     </div>
-    <div class="footer">
-        <a href="/">戻る</a>
-    </div>
-</body>
-</html>
+@endsection

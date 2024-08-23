@@ -14,35 +14,31 @@ class RecommendReview extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'recommend_id',          // recommends_id を recommend_id に修正
-        'recommend_review_id',   // recommends_review_id を recommend_review_id に修正
+        'recommend_id',  // recommends_id を recommend_id に修正
         'user_id',
-        'star',
         'comment',
+        'star',
+        'parent_id', // これを追加して、親コメントのIDを設定できるようにします
     ];
-    /**
-     * Get the user that owns the recommend review.
-     */
+
+    // リレーション定義
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
     public function recommend()
     {
         return $this->belongsTo(Recommend::class);
     }
-    public function recommend_review()
-    {
-        return $this->belongsTo(RecommendReview::class, 'recommend_review_id');
-    }
+
     public function replies()
     {
         return $this->hasMany(RecommendReview::class, 'parent_id');
     }
-    
+
     public function parent()
     {
         return $this->belongsTo(RecommendReview::class, 'parent_id');
     }
-
 }

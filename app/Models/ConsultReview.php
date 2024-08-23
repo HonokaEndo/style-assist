@@ -16,9 +16,9 @@ class ConsultReview extends Model
 
     protected $fillable = [
         'consult_id',          // consults_id を consult_id に修正
-        'consult_review_id',   // consults_review_id を consult_review_id に修正
         'user_id',
         'comment',
+        'parent_id', // これを追加して、親コメントのIDを設定できるようにします
     ];
     /**
      * Get the user that owns the consult review.
@@ -31,9 +31,13 @@ class ConsultReview extends Model
     {
         return $this->belongsTo(Consult::class, 'consult_id');
     }
-    public function consult_review()
+    public function replies()
     {
-        return $this->belongsTo(ConsultReview::class, 'consult_review_id');
+        return $this->hasMany(ConsultReview::class, 'parent_id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(ConsultReview::class, 'parent_id');
+    }
 }

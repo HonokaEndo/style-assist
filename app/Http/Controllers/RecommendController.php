@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recommend;
 use App\Models\RecommendReview;
+use App\Models\User;
 use Cloudinary;
 
 class RecommendController extends Controller
@@ -36,12 +37,22 @@ class RecommendController extends Controller
         return view('recommends.recoshow', compact('recommend'));
     }
     
-    public function all()
+    public function all(Request $request)
     {
-        $recommends = Recommend::orderBy('created_at', 'desc')->get(); // 投稿を作成日で降順に取得
-        return view('recommends.recoall', compact('recommends'));
-    }
+        // すべての投稿をしているユーザーリストを取得
+        $users = User::has('recommends')->get(); // 投稿があるユーザーのみ取得
     
+        // ユーザーが選択された場合、そのユーザーの投稿だけを取得
+        $selectedUserId = $request->input('user_id');
+        if ($selectedUserId) {
+            $recommends = Recommend::where('user_id', $selectedUserId)->orderBy('created_at', 'desc')->get();
+        } else {
+            $recommends = Recommend::orderBy('created_at', 'desc')->get();
+        }
+    
+        return view('recommends.recoall', compact('recommends', 'users', 'selectedUserId'));
+    }
+        
     public function comment(Request $request, Recommend $recommend)
     {
         // 初回コメントでは評価が必要
@@ -62,10 +73,11 @@ class RecommendController extends Controller
     
     public function reply(Request $request, Recommend $recommend, RecommendReview $review)
     {
-        // 返信コメントでは評価を不要に
-        if (auth()->id() !== $recommend->user_id && auth()->id() !== $review->user_id) {
-            return redirect()->back()->withErrors('このコメントに返信する権限がありません。');
-        }
+        // コメント条件を削除
+        // // 返信コメントでは評価を不要に
+        // if (auth()->id() !== $recommend->user_id && auth()->id() !== $review->user_id) {
+        //     return redirect()->back()->withErrors('このコメントに返信する権限がありません。');
+        // }
     
         $request->validate([
             'comment' => 'required|string',
@@ -83,11 +95,10 @@ class RecommendController extends Controller
     }
 
     
-    public function commentForm(Recommend $recommend)
+   public function commentForm(Recommend $recommend)
     {
-        // 関連するコメントをすべて取得
-        $comments = $recommend->recommendReviews()->with('user')->get();
+        // 関連するコメントをすべて取得し、リレーションをロード
+        $comments = $recommend->recommendReviews()->with('user', 'replies.user')->get();
         return view('recommends.recore', compact('recommend', 'comments'));
-        return view('recommends.recore', compact('recommend'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Consult;
 use App\Models\ConsultReview;
+use App\Models\User;
 use Cloudinary;
 
 class ConsultController extends Controller
@@ -36,10 +37,21 @@ class ConsultController extends Controller
         return view('consults.conshow', compact('consult'));
     }
     
-    public function all()
+    public function all(Request $request)
     {
-        $consults = Consult::orderBy('created_at', 'desc')->get(); // 投稿を作成日で降順に取得
-        return view('consults.conall', compact('consults'));
+        // すべての投稿をしているユーザーリストを取得
+        $users = User::has('consults')->get(); // 投稿があるユーザーのみ取得
+    
+        // ユーザーが選択された場合、そのユーザーの投稿だけを取得
+        $selectedUserId = $request->input('user_id');
+        if ($selectedUserId) {
+            $consults = Consult::where('user_id', $selectedUserId)->orderBy('created_at', 'desc')->get();
+        } else {
+            $consults = Consult::orderBy('created_at', 'desc')->get();
+        }
+
+        
+        return view('consults.conall', compact('consults', 'users', 'selectedUserId'));
     }
     
     public function comment(Request $request, Consult $consult)
@@ -60,9 +72,10 @@ class ConsultController extends Controller
     
     public function reply(Request $request, Consult $consult, ConsultReview $review)
     {
-        if (auth()->id() !== $consult->user_id && auth()->id() !== $review->user_id) {
-            return redirect()->back()->withErrors('このコメントに返信する権限がありません。');
-        }
+        // コメント条件の削除
+        // if (auth()->id() !== $consult->user_id && auth()->id() !== $review->user_id) {
+        //     return redirect()->back()->withErrors('このコメントに返信する権限がありません。');
+        // }
     
         $request->validate([
             'comment' => 'required|string',
@@ -80,10 +93,10 @@ class ConsultController extends Controller
 
     public function commentForm(Consult $consult)
     {
-        // 関連するコメントをすべて取得
-        $comments = $consult->consultReviews()->with('user')->get();
+        // 関連するコメントをすべて取得し、リレーションをロード
+        $comments = $consult->consultReviews()->with('user', 'replies.user')->get();
         return view('consults.conre', compact('consult', 'comments'));
-        return view('consults.conre', compact('consult'));
     }
+
 
 }

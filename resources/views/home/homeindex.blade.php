@@ -1,21 +1,21 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>ホーム</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
-<body>
-    <div class="content">
-        <div class="content__post">
-            <h3>ホーム</h3>
-                <div class="footer">
-                    <a href="/">マイページ</a>
-                    <a href="/consults/all">相談コーナー</a>
-                    <a href="/recommends/all">おすすめコーナー</a>
-                </div>
-        </div>
+@extends('layouts.app')
+
+@section('content')
+<div class="flex">
+    <div class="body_content">
+        <h3>ホーム</h3>
+            <h4>今週のおすすめランキング</h4>
+                <ul>
+                    @foreach($topRecommends as $index => $recommend)
+                        <li>
+                            {{ $index + 1 }}位<br>
+                            ユーザー名: {{ $recommend->user->name }}<br>
+                            評価: {{ round($recommend->average_rating, 1) }} / 5<br>
+                            投稿内容: {{ $recommend->body }}<br>
+                            <img src="{{ $recommend->image_url }}" class="fixed-size">
+                        </li>
+                    @endforeach
+                </ul>
     </div>
-</body>
-</html>
+</div>    
+ @endsection
