@@ -9,18 +9,65 @@
 }
 
 .body_content {
-    padding-top: 5rem !important;; /* タイトルバーの下に表示する為のパディングを追加 */
-    padding: 2rem;
+    padding-top: 5rem !important; /* タイトルバーの下に表示する為のパディングを追加 */
+    padding: 15rem;
+    background-image: url('style-assist/public/image/background1.jpg'); /* 画像のパスを指定 */
+    background-size: cover; /* 画面全体を覆うように設定 */
+    background-repeat: no-repeat; /* 繰り返しを無効化 */
+    background-position: center; /* 画像の中心を表示 */
 }
 
 .fixed-size {
     width: 100px;
     height: auto;
-    object-fit: fill; /* 画像が枠に収まるように表示 */
+    object-fit: fill; /* 画像の横幅が枠に収まるように表示 */
 }
 
 .fixed-high-size {
     width: auto;
     height: 220px;
-    object-fit: fill; /* 画像が枠に収まるように表示 */
+    object-fit: fill; /* 画像の縦幅が枠に収まるように表示 */
 }
+
+/*ここからがサイドバー*/
+.fixed-sidebar {																		
+	position: fixed;																	
+	top: 4rem; /* トップメニューの高さに合わせて調整 */																	
+	left: 0;																	
+	width: 13rem; /* サイドバーの幅を設定 */																	
+	height: calc(100vh - 4rem); /* 画面全体の高さからトップメニューの高さを引く */																	
+	background-color: #3c4a49;																	
+	padding: 1rem;																	
+	overflow-y: auto; /* コンテンツが長くなった場合のスクロール */																	
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.8); /* 右側に影を付ける */
+	/*このコードを追加*/
+	box-sizing: border-box; /* パディングが幅に含まれるように設定 */
+}		
+
+.fixed-sidebar a {																		
+	display: inline-block; /* リンクをインラインブロック要素として表示 */																	
+	color: #ffffff; /* 文字色を白に設定 */																	
+	padding: 0.1rem 0.5rem; /* 内側の余白を設定 */																	
+	text-decoration: none; /* 下線を除去 */																	
+	font-weight: 600; /* 太字に設定 */																	
+	font-size: 0.9rem; /* フォントサイズを設定 */																	
+}																		
+
+.fixed-sidebar a:hover {																		
+	color: #ffde3b; /* ホバー時の文字色を設定 */																	
+}																		
+
+.fixed-sidebar a:active {																		
+	color: #ffffff; /* クリック時の文字色を設定 */																	
+}																		
+
+.fixed-sidebar ul {																		
+	list-style: none; /* デフォルトのリストスタイルを無効化 */																	
+	padding: 0;																	
+}																		
+
+.fixed-sidebar li {																		
+	display: flex; /* アイコンとテキストを横並びに表示 */																	
+	align-items: center; /* アイコンとテキストを垂直に中央揃え */																	
+	margin-bottom: 1rem; /* 各メニュー項目の間に余白を追加 */																	
+}																		

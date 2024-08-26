@@ -29,14 +29,9 @@ class ConsultController extends Controller
             'user_id' => auth()->id(),
         ]; 
         $consult = Consult::create($input);
-        return redirect('/consults/' . $consult->id);
+        return redirect('/consults/all');
     }
 
-    public function show(Consult $consult)
-    {
-        return view('consults.conshow', compact('consult'));
-    }
-    
     public function all(Request $request)
     {
         // すべての投稿をしているユーザーリストを取得
@@ -72,11 +67,6 @@ class ConsultController extends Controller
     
     public function reply(Request $request, Consult $consult, ConsultReview $review)
     {
-        // コメント条件の削除
-        // if (auth()->id() !== $consult->user_id && auth()->id() !== $review->user_id) {
-        //     return redirect()->back()->withErrors('このコメントに返信する権限がありません。');
-        // }
-    
         $request->validate([
             'comment' => 'required|string',
         ]);
@@ -96,6 +86,45 @@ class ConsultController extends Controller
         // 関連するコメントをすべて取得し、リレーションをロード
         $comments = $consult->consultReviews()->with('user', 'replies.user')->get();
         return view('consults.conre', compact('consult', 'comments'));
+    }
+    
+    public function deleteForm()
+    {
+        $userId = auth()->id(); // ログインユーザーのIDを取得
+        $consults = Consult::where('user_id', $userId)->get(); // ログインユーザーの投稿を取得
+        return view('consults.conupdate', compact('consults'));
+    }
+
+    
+    public function delete(Request $request, Consult $consult)
+    {
+        $consult->delete(); // レコードを削除する
+        return redirect()->route('consult.deleteForm')->with('success', '投稿が削除されました。');
+    }
+    
+    public function edit(Consult $consult)
+    {
+        // 投稿内容を取得して、編集用のビューに渡す
+        return view('consults.conedit', compact('consult'));
+    }
+    
+    public function update(Request $request, Consult $consult)
+    {
+        $request->validate([
+            'consult.body' => 'required|string',
+        ]);
+    
+        $input = $request['consult'];
+    
+        // 画像の更新があれば、Cloudinaryにアップロード
+        if ($request->hasFile('image')) {
+            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+            $input['image_url'] = $image_url;
+        }
+    
+        $consult->update($input);
+    
+        return redirect()->route('consult.deleteForm')->with('success', '投稿が更新されました！');
     }
 
 

@@ -29,14 +29,9 @@ class RecommendController extends Controller
             'user_id' => auth()->id(),
         ]; 
         $recommend = Recommend::create($input);
-        return redirect('/recommends/' . $recommend->id);
+        return redirect('/recommends/all');
     }
 
-    public function show(Recommend $recommend)
-    {
-        return view('recommends.recoshow', compact('recommend'));
-    }
-    
     public function all(Request $request)
     {
         // すべての投稿をしているユーザーリストを取得
@@ -73,12 +68,6 @@ class RecommendController extends Controller
     
     public function reply(Request $request, Recommend $recommend, RecommendReview $review)
     {
-        // コメント条件を削除
-        // // 返信コメントでは評価を不要に
-        // if (auth()->id() !== $recommend->user_id && auth()->id() !== $review->user_id) {
-        //     return redirect()->back()->withErrors('このコメントに返信する権限がありません。');
-        // }
-    
         $request->validate([
             'comment' => 'required|string',
         ]);
@@ -94,11 +83,55 @@ class RecommendController extends Controller
         return redirect()->route('recommend.commentForm', ['recommend' => $recommend->id]);
     }
 
-    
-   public function commentForm(Recommend $recommend)
+    public function commentForm(Recommend $recommend)
     {
         // 関連するコメントをすべて取得し、リレーションをロード
         $comments = $recommend->recommendReviews()->with('user', 'replies.user')->get();
         return view('recommends.recore', compact('recommend', 'comments'));
     }
+    
+    public function deleteForm()
+    {
+        $userId = auth()->id(); // ログインユーザーのIDを取得
+        $recommends = Recommend::where('user_id', $userId)->get(); // ログインユーザーの投稿を取得
+        return view('recommends.recoupdate', compact('recommends'));
+    }
+
+    
+    public function delete(Request $request, Recommend $recommend)
+    {
+        // レコードを削除する
+        $recommend->delete();
+    
+        // 削除後、削除画面にリダイレクトして、成功メッセージを表示
+        return redirect()->route('recommend.deleteForm')->with('success', '投稿が削除されました。');
+    }
+
+    
+    public function edit(Recommend $recommend)
+    {
+        // 投稿内容を取得して、編集用のビューに渡す
+        return view('recommends.recoedit', compact('recommend'));
+    }
+    
+    public function update(Request $request, Recommend $recommend)
+    {
+        $request->validate([
+            'recommend.body' => 'required|string',
+        ]);
+    
+        $input = $request['recommend'];
+    
+        // 画像の更新があれば、Cloudinaryにアップロード
+        if ($request->hasFile('image')) {
+            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+            $input['image_url'] = $image_url;
+        }
+    
+        $recommend->update($input);
+    
+        return redirect()->route('recommend.deleteForm')->with('success', '投稿が更新されました！');
+    }
+
+
 }

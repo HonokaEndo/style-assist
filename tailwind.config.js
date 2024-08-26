@@ -15,10 +15,11 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             backgroundImage: {
-                'background':"url('/image/Sampleimage.jpeg') "
+                'background':"url('/image/background1.jpg') "
             }
         },
     },
 
     plugins: [forms],
+    
 };
