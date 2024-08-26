@@ -6,6 +6,8 @@ use App\Http\Controllers\ConsultController;
 use App\Http\Controllers\MyCoordinationController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,23 +31,28 @@ Route::get('/recommends/all', [RecommendController::class, 'all'])->name('/recom
 Route::get('/recommends/{recommend}/comment', [RecommendController::class, 'commentForm'])->name('recommend.commentForm');
 Route::post('/recommends/{recommend}/comment', [RecommendController::class, 'comment']);
 Route::post('/recommends/{recommend}/comment/{review}/reply', [RecommendController::class, 'reply'])->name('recommend.reply');
-Route::get('/recommends/index', [RecommendController::class, 'index'])->name('/recommends/index');
+Route::get('/recommends/delete', [RecommendController::class, 'deleteForm'])->name('recommend.deleteForm');
+Route::post('/recommends/{recommend}/delete', [RecommendController::class, 'delete'])->name('recommend.delete');
+Route::get('/recommends/{recommend}/edit', [RecommendController::class, 'edit'])->name('recommend.edit');
+Route::put('/recommends/{recommend}', [RecommendController::class, 'update'])->name('recommend.update');
+Route::get('/recommends/index', [RecommendController::class, 'index']);
 Route::post('/recommends', [RecommendController::class, 'store']);
-Route::get('/recommends/{recommend}', [RecommendController::class, 'show']);
 
 Route::get('/consults/all', [ConsultController::class, 'all'])->name('/consults/all');
 Route::get('/consults/{consult}/comment', [ConsultController::class, 'commentForm'])->name('consult.commentForm');
 Route::post('/consults/{consult}/comment', [ConsultController::class, 'comment']);
 Route::post('/consults/{consult}/comment/{review}/reply', [ConsultController::class, 'reply'])->name('consult.reply');
-Route::get('/consults/index', [ConsultController::class, 'index'])->name('/consults/index');
+Route::get('/consults/delete', [ConsultController::class, 'deleteForm'])->name('consult.deleteForm');
+Route::post('/consults/{consult}/delete', [ConsultController::class, 'delete'])->name('consult.delete');
+Route::get('/consults/{consult}/edit', [ConsultController::class, 'edit'])->name('consult.edit');
+Route::put('/consults/{consult}', [ConsultController::class, 'update'])->name('consult.update');
+Route::get('/consults/index', [ConsultController::class, 'index']);
 Route::post('/consults', [ConsultController::class, 'store']);
-Route::get('/consults/{consult}', [ConsultController::class, 'show']);
 
-Route::get('/my_coordinations/delete', [MyCoordinationController::class, 'showDeleteForm'])->name('/my_coordinations/delete');
-Route::post('/my_coordinations/delete', [MyCoordinationController::class, 'deleteByDay'])->name('/my_coordinations/delete');
-Route::get('/my_coordinations/index', [MyCoordinationController::class, 'index'])->name('/my_coordinations/index');
+Route::get('/my_coordinations/delete', [MyCoordinationController::class, 'showDeleteForm']);
+Route::post('/my_coordinations/delete', [MyCoordinationController::class, 'deleteByDay']);
+Route::get('/my_coordinations/index', [MyCoordinationController::class, 'index']);
 Route::post('/my_coordinations', [MyCoordinationController::class, 'store']);
-Route::get('/my_coordinations/{my_coordination}', [MyCoordinationController::class, 'show']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

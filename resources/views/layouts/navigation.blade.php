@@ -12,29 +12,17 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')"  class="no-underline">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('/')" :active="request()->routeIs('/')">
+                    <x-nav-link :href="route('/')" :active="request()->routeIs('/')" class="no-underline">
                         {{ __('マイページ') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('/my_coordinations/index')" :active="request()->routeIs('/my_coordinations/index')">
-                        {{ __('服を保存する') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('/my_coordinations/delete')" :active="request()->routeIs('/my_coordinations/delete')">
-                        {{ __('服を削除する') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('/recommends/all')" :active="request()->routeIs('/recommends/all')">
+                    <x-nav-link :href="route('/recommends/all')" :active="request()->routeIs('/recommends/all')" class="no-underline">
                         {{ __('おすすめコーナー') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('/recommends/index')" :active="request()->routeIs('/recommends/index')">
-                        {{ __('おすすめする') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('/consults/all')" :active="request()->routeIs('/consults/all')">
+                    <x-nav-link :href="route('/consults/all')" :active="request()->routeIs('/consults/all')" class="no-underline">
                         {{ __('相談コーナー') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('/consults/index')" :active="request()->routeIs('/consults/index')">
-                        {{ __('相談する') }}
                     </x-nav-link>
                 </div>
             </div>
