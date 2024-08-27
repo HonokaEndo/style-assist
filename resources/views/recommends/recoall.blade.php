@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="flex">
-        <div class="bg-background bg-repeat h-screen w-screen" style="background-size: 25%;">
-            <div class="body_content">
+        <div class="bg-background bg-repeat min-h-screen w-full" style="background-size: 20%;">
+                <div class="body_content">
                 <!-- サイドバー-->
                 <div class="fixed-sidebar h-screen p-4">
                     <ul>
