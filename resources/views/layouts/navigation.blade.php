@@ -12,19 +12,24 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')"  class="no-underline">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="no-underline flex items-center">
+                        <img src="{{ asset('image/home-icon.png') }}" alt="Home Icon" class="w-5 h-5 me-2">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('/')" :active="request()->routeIs('/')" class="no-underline">
-                        {{ __('マイページ') }}
+                    <x-nav-link :href="route('/')" :active="request()->routeIs('/')" class="no-underline flex items-center">
+                        <img src="{{ asset('image/mypage-icon.png') }}" alt="Mypage Icon" class="w-5 h-5 me-2">
+                        {{ __('MyPage') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('/recommends/all')" :active="request()->routeIs('/recommends/all')" class="no-underline">
-                        {{ __('おすすめコーナー') }}
+                    <x-nav-link :href="route('/recommends/all')" :active="request()->routeIs('/recommends/all')" class="no-underline flex items-center">
+                        <img src="{{ asset('image/favorite-icon.png') }}" alt="Favorite Icon" class="w-5 h-5 me-2">
+                        {{ __('Favorite') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('/consults/all')" :active="request()->routeIs('/consults/all')" class="no-underline">
-                        {{ __('相談コーナー') }}
+                    <x-nav-link :href="route('/consults/all')" :active="request()->routeIs('/consults/all')" class="no-underline flex items-center">
+                        <img src="{{ asset('image/consult-icon.png') }}" alt="Consult Icon" class="w-5 h-5 me-2">
+                        {{ __('Consult') }}
                     </x-nav-link>
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->

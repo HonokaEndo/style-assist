@@ -2,21 +2,29 @@
 
 @section('content')
     <div class="flex">
-        <div class="bg-background bg-repeat h-screen w-screen" style="background-size: 25%;">
+        <div class="bg-background">
             <div class="body_content">
                 <!-- サイドバー-->
                 <div class="fixed-sidebar h-screen p-4">
                     <ul>
-                        <li><a href="/recommends/index" class="text-black">
-                            おすすめ内容を投稿する
-                        </a></li>
-                        <li><a href="/recommends/delete" class="text-black">
-                            おすすめ内容を編集する
-                        </a></li>
+                        <li>
+                            <img src="{{ asset('/image/in-icon.png') }}" alt="投稿アイコン">
+                            <a href="/recommends/index">
+                                おすすめ内容を
+                                <br>投稿する
+                            </a>
+                        </li>
+                        <li>
+                            <img src="{{ asset('/image/up-icon.png') }}" alt="編集アイコン">
+                            <a href="/recommends/delete">
+                                おすすめ内容を
+                                <br>編集する
+                            </a>
+                        </li>
                     </ul>
+
                 </div>
                 
-                <!--<h1>おすすめコーナー</h1>-->
                 <!-- ユーザー選択プルダウンメニュー -->
                 <form action="{{ url('/recommends/all') }}" method="GET">
                     <label for="user_id">ユーザーを選択してください:</label>
@@ -29,15 +37,17 @@
                         @endforeach
                     </select>
                 </form>
-        
+                <br>
                 <!-- 投稿一覧 -->
                 <div class="posts">
                     @foreach($recommends as $recommend)
                         <div class="post">
-                            <p>{{ $recommend->body }}</p>
                             @if($recommend->image_url)
-                                <img src="{{ $recommend->image_url }}" alt="投稿された画像" class="fixed-size">
+                                <img src="{{ $recommend->image_url }}" alt="投稿された画像" class="fixed-size centered-image">
                             @endif
+                            <br>
+                            <p>{{ $recommend->body }}</p>
+                            <br>
                             <!-- コメントするボタン -->
                             <form action="/recommends/{{ $recommend->id }}/comment" method="get" style="display: inline-block;">
                                 <input type="submit" value="コメントする" 

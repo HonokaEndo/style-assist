@@ -2,17 +2,25 @@
 
 @section('content')
     <div class="flex">
-        <div class="bg-background bg-repeat h-screen w-screen" style="background-size: 25%;">
+        <div class="bg-background">
             <div class="body_content">
                 <!-- サイドバー-->
                 <div class="fixed-sidebar h-screen p-4">
                     <ul>
-                        <li><a href="/consults/index" class="text-black">
-                            相談内容を投稿する
-                        </a></li>
-                        <li><a href="/consults/delete" class="text-black">
-                            相談内容を編集する
-                        </a></li>
+                        <li>
+                            <img src="{{ asset('/image/in-icon.png') }}" alt="編集アイコン">
+                            <a href="/recommends/index">
+                                相談内容を
+                                <br>投稿する
+                            </a>
+                        </li>
+                        <li>
+                            <img src="{{ asset('/image/up-icon.png') }}" alt="編集アイコン">
+                            <a href="/recommends/delete">
+                                相談内容を
+                                <br>編集する
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 
@@ -27,26 +35,31 @@
                 @endif
         
                 @if(!$consults->isEmpty())
-                    @foreach($consults as $consult)
-                        <div class="post">
-                            <h3>{{ $consult->body }}</h3>
-                            @if($consult->image_url)
-                                <img src="{{ $consult->image_url }}" alt="投稿された画像" class="fixed-size">
-                            @endif
-                            <!-- 削除ボタン -->
-                            <form action="{{ route('consult.delete', ['consult' => $consult->id]) }}" method="POST" style="display:inline;">
-                                @csrf
-                                <input type="submit" value="削除する" style="display: inline-block; background-color: #d9534f; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;"/>
-                            </form>
-        
-                            <!-- 編集ボタン -->
-                            <form action="{{ route('consult.edit', ['consult' => $consult->id]) }}" method="GET" style="display:inline;">
-                                @csrf
-                                <input type="submit" value="編集する" style="display: inline-block; background-color: #5bc0de; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;"/>
-                            </form>
-                        </div>
-                        <hr>
-                    @endforeach
+                    <div class="posts">
+                        @foreach($consults as $consult)
+                            <div class="post">
+                                @if($consult->image_url)
+                                    <img src="{{ $consult->image_url }}" alt="投稿された画像" class="fixed-size">
+                                @endif
+                                <br>
+                                <h3>{{ $consult->body }}</h3>
+                                <br>
+                                <div>
+                                    <!-- 編集ボタン -->
+                                    <form action="{{ route('consult.edit', ['consult' => $consult->id]) }}" method="GET" style="display:inline;">
+                                        @csrf
+                                        <input type="submit" value="編集する" style="display: inline-block; background-color: #5bc0de; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;"/>
+                                    </form>
+                                    
+                                    <!-- 削除ボタン -->
+                                    <form action="{{ route('consult.delete', ['consult' => $consult->id]) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <input type="submit" value="削除する" style="display: inline-block; background-color: #d9534f; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;"/>
+                                    </form>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>
