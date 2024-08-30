@@ -1,3 +1,7 @@
+.bg-background {
+    background-color: #add8e6;
+}
+
 .fixed-top-nav {
     position: fixed;
     top: 0;
@@ -10,12 +14,11 @@
 
 .body_content {
     padding-top: 5rem !important; /* タイトルバーの下に表示する為のパディングを追加 */
-    padding: 15rem;
-    background-image: url('style-assist/public/image/background1.jpg'); /* 画像のパスを指定 */
-    background-size: cover; /* 画面全体を覆うように設定 */
-    background-repeat: no-repeat; /* 繰り返しを無効化 */
-    background-position: center; /* 画像の中心を表示 */
+    padding-left: 15rem; /* 左側のパディングをサイドバーの幅に合わせて設定 */
+    padding-right: 2rem; /* 右側の余白 */
+    background-color: #add8e6; /* 好きな色に変更 */
 }
+
 
 .fixed-size {
     width: 100px;
@@ -29,12 +32,123 @@
     object-fit: fill; /* 画像の縦幅が枠に収まるように表示 */
 }
 
+/* コーナーの投稿を横に3つ並べるためのコンテナスタイル */
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* 各投稿の間に均等にスペースを設ける */
+    gap: 20px; /* 投稿間のスペースを調整 */
+}
+
+.post {
+    width: calc(33% - 20px); /* 横に3つ並べるための幅を設定（隙間分を引く） */
+    box-sizing: border-box;
+    background-color: white; /* 必要に応じて背景色を設定 */
+    padding: 10px; /* 内側に余白を追加 */
+    border-radius: 15px; /* 角を丸める */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して少し浮かせる */
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 画像とテキストを中央揃え */
+    margin-bottom: 10px; /* 各投稿の間にスペースを追加 */
+}
+
+.post p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap; /* 改行を維持して表示 */
+}
+
+.centered-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px; /* 角を丸める */
+}
+
+/*ランキングを横に5つ並べる*/
+.rankposts {
+    display: flex;
+    justify-content: flex-start; /* 左寄せにする */
+    gap: 20px; /* 投稿間のスペースを調整 */
+    margin-bottom: 20px; /* 下部に余白を追加 */
+}
+
+.rankpost {
+    width:13.5rem; /* 横に5つ並べるための幅を設定（隙間分を引く） */
+    box-sizing: border-box;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* テキストを中央揃え */
+}
+
+/*ランキングのユーザーアイコン*/
+.user-info {
+    display: flex;
+    align-items: center; /* アイコンと名前を垂直に中央揃え */
+    margin-bottom: 10px; /* 下に余白を追加 */
+}
+
+.user-icon {
+    width: 15px; /* アイコンの幅を設定 */
+    height: 15px; /* アイコンの高さを設定 */
+    border-radius: 50%; /* アイコンを円形にする */
+    margin-bottom: 1px; /* アイコンとユーザー名の間に余白を追加 */
+    object-fit: cover; /* アイコンのサイズに合わせて表示 */
+}
+
+/*ランキングの星の部分*/
+.rating {
+    color: #FCD34D; /* 星の色 */
+    font-size: 20px; /* 星の大きさを調整 */
+    margin-bottom: 10px; /* 下に余白を追加 */
+}
+
+.rating .fa-star,
+.rating .fa-star-half-alt,
+.rating .fa-star {
+    margin-right: 5px; /* 星同士の間隔を調整 */
+}
+
+/*曜日ごとの服装を7つ横に並べる*/
+.dayposts {
+    display: flex;
+    flex-wrap: nowrap; /* 横一列に並べる */
+    justify-content: space-between; /* 各投稿の間に均等にスペースを設ける */
+    gap: 10px; /* 投稿間のスペースを調整 */
+    padding: 10px; /* コンテナ全体にパディングを追加 */
+    margin-bottom: 20px; /* 下部に余白を追加 */
+}
+
+.daypost {
+    flex: 1; /* 各曜日の幅を均等にする */
+    width: 9.5rem; /* 各投稿の最大幅を設定 */
+    box-sizing: border-box;
+    background-color: white; /* 必要に応じて背景色を設定 */
+    padding: 10px; /* 内側に余白を追加 */
+    border-radius: 15px; /* 角を丸める */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して少し浮かせる */
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 画像とテキストを中央揃え */
+    margin-bottom: 10px; /* 各投稿の間にスペースを追加 */
+    text-align: center; /* テキストを中央揃え */
+}
+
+
 /*ここからがサイドバー*/
 .fixed-sidebar {																		
 	position: fixed;																	
 	top: 4rem; /* トップメニューの高さに合わせて調整 */																	
 	left: 0;																	
-	width: 13rem; /* サイドバーの幅を設定 */																	
+	width: 14rem; /* サイドバーの幅を設定 */																	
 	height: calc(100vh - 4rem); /* 画面全体の高さからトップメニューの高さを引く */																	
 	background-color: #3c4a49;																	
 	padding: 1rem;																	
@@ -54,11 +168,11 @@
 }																		
 
 .fixed-sidebar a:hover {																		
-	color: #ffde3b; /* ホバー時の文字色を設定 */																	
+	color: #D97706; /* ホバー時の文字色を設定 */																	
 }																		
 
 .fixed-sidebar a:active {																		
-	color: #ffffff; /* クリック時の文字色を設定 */																	
+	color: #D97706; /* クリック時の文字色を設定 */																	
 }																		
 
 .fixed-sidebar ul {																		
@@ -71,3 +185,59 @@
 	align-items: center; /* アイコンとテキストを垂直に中央揃え */																	
 	margin-bottom: 1rem; /* 各メニュー項目の間に余白を追加 */																	
 }																		
+
+/*サイドバーアイコン*/
+.fixed-sidebar li {
+    display: flex; /* アイコンとテキストを横並びに表示 */
+    align-items: center; /* アイコンとテキストを垂直に中央揃え */
+    margin-bottom: 1rem; /* 各メニュー項目の間に余白を追加 */
+    padding: 7px; /* 内側に余白を追加 */
+    border: 2px solid #b0a89a; /* 枠を追加 */
+    border-radius: 25px; /* 枠を丸くする */
+    background-color: #f5f5f5; /* 背景色を追加 */
+    color: #3c4a49; /* テキストの色 */
+}
+
+.fixed-sidebar li img {
+    width: 24px; /* アイコンのサイズを調整 */
+    height: 24px;
+    margin-right: 7px; /* アイコンとテキストの間に余白を追加 */
+}
+
+.fixed-sidebar a {
+    color: inherit; /* リンクの色を親要素から引き継ぐ */
+    text-decoration: none; /* 下線を除去 */
+    font-weight: bold; /* 太字に設定 */
+}
+
+/*コメント一覧の位置*/
+.commentsbar {
+    position: fixed;
+    display: flex;
+    box-sizing: border-box;
+    top: 5rem; /* 上からの距離 */
+    right: 5rem; /*右からの距離*/
+    width: 30rem; /* 横幅 */
+    height: auto; /* 高さを画面全体から上部の余白を引いた高さに設定 */
+    background-color: #ffffff; /* 背景色を白に設定 */
+    padding: 1rem; /* 内側の余白を設定 */
+    box-shadow: -2px 0 20px rgba(0, 0, 0, 0.5); /* 右側に影をつける */
+    border-radius: 15px; /* 角を丸める */
+    overflow-y: auto; /* 縦スクロールを許可 */
+    flex-direction: column; /* 縦に並べる */
+}
+
+/*投稿場所の位置*/
+.evaluationbar{
+    position: fixed;
+    display: flex;
+    box-sizing: border-box;
+    width: 30rem; /* 横幅 */
+    left: 19rem; /*左からの距離*/
+    padding: 1rem; /* 内側の余白を設定 */
+    background-color: white; /* 必要に応じて背景色を設定 */
+    border-radius: 15px; /* 角を丸める */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して少し浮かせる */
+    align-items: center; /* 画像とテキストを中央揃え */
+    flex-direction: column; /* 縦に並べる */
+}

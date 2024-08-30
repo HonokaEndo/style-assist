@@ -2,17 +2,25 @@
 
 @section('content')
     <div class="flex">
-        <div class="bg-background bg-repeat h-screen w-screen" style="background-size: 25%;">
+        <div class="bg-background">
             <div class="body_content">
                 <!-- サイドバー-->
                 <div class="fixed-sidebar h-screen p-4">
                     <ul>
-                        <li><a href="/consults/index" class="text-black">
-                            相談内容を投稿する
-                        </a></li>
-                        <li><a href="/consults/delete" class="text-black">
-                            相談内容を編集する
-                        </a></li>
+                        <li>
+                            <img src="{{ asset('/image/in-icon.png') }}" alt="編集アイコン">
+                            <a href="/recommends/index">
+                                相談内容を
+                                <br>投稿する
+                            </a>
+                        </li>
+                        <li>
+                            <img src="{{ asset('/image/up-icon.png') }}" alt="編集アイコン">
+                            <a href="/recommends/delete">
+                                相談内容を
+                                <br>編集する
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 
