@@ -24,32 +24,34 @@
                     </ul>
                 </div>
                 
-                <!--<h1>投稿を編集する</h1>-->
-        
                 <form action="{{ route('recommend.update', ['recommend' => $recommend->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-        
-                    <div class="body">
-                        <h2>おすすめ内容</h2>
-                        <textarea name="recommend[body]" placeholder="コメント">{{ old('recommend.body', $recommend->body) }}</textarea>
-                    </div>
-                    <div class="image">
-                        <p style="color: rgb(11, 11, 11); font-weight: bold;">現在の画像</p>
-                        @if($recommend->image_url)
-                            <img src="{{ $recommend->image_url }}" alt="現在の画像" class="fixed-size">
-                            <input type="hidden" name="current_image" value="{{ $recommend->image_url }}">
-                        @endif
-                        <br>
-                        <!-- "変更する画像"のファイル選択と画像プレビュー -->
-                        <input type="file" name="image" id="image">
-                        <div id="newImageSection" style="display: none; margin-top: 1rem;">
-                            <p style="color: rgb(11, 11, 11); font-weight: bold;">変更する画像</p>
-                            <img id="imagePreview" src="#" alt="選択した画像" style="max-width: 300px; max-height: 300px;"/>
+                    <div class="form-container">
+                        <div class="image">
+                            <label>現在の画像<br>
+                                @if($recommend->image_url)
+                                    <img src="{{ $recommend->image_url }}" alt="現在の画像" class="fixed-size">
+                                    <input type="hidden" name="current_image" value="{{ $recommend->image_url }}">
+                                @endif
+                            </label>
+                        </div>
+                        <div class="image-edit">
+                            <!-- "変更する画像"のファイル選択と画像プレビュー -->
+                            <label for="image">変更する画像選択してください:<br>
+                                <input type="file" name="image" id="image" required><br>
+                                <div id="newImageSection" style="display: none; margin-top: 1rem;"><br>
+                                    <img id="imagePreview" src="#" alt="選択した画像" style="max-width: 300px; max-height: 300px; margin-left: 100px;"/>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="body">
+                            <h2>おすすめ内容</h2>
+                            <textarea name="recommend[body]" style="width: 400px; height: 150px;" placeholder="コメント">{{ old('recommend.body', $recommend->body) }}　</textarea>
                         </div>
                     </div>
-        
-                    <input type="submit" value="更新する" style="display: inline-block; background-color: #5bc0de; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;"/>
+                    <br>
+                    <input type="submit" value="更新する" class="rounded-button">
                 </form>
                 
                 <!-- 選択した画像を表示させる -->

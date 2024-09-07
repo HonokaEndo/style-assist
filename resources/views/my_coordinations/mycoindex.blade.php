@@ -22,8 +22,6 @@
                     </ul>
                 </div>
             
-                <!--<h1>服を保存する</h1>-->
-                
                 <!-- エラーメッセージの表示 -->
                 @if($errors->any())
                     <div style="color: red;">
@@ -37,32 +35,39 @@
                 
                 <form action="/my_coordinations" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="image">
-                        <label for="image">画像を選択してください:</label>
-                        <input type="file" name="image" id="image" required>
+                    <div class="form-container">
+                        <div class="image">
+                            <label for="image">画像を選択してください:<br>
+                                <input type="file" name="image" id="image" required>
+                            </label>
+                        </div>
+                        <div class="day">
+                            <label for="day_id">曜日を選択してください:<br>
+                                <select name="day_id" id="day_id" required>
+                                    @foreach($days as $day)
+                                        <option value="{{ $day->id }}">{{ $day->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </div>
                     </div>
                     <div class="image-preview">
                         <img id="imagePreview" src="#" alt="選択した画像" style="display: none; max-width: 300px; max-height: 300px;">
                     </div>
-                    <div class="day">
-                        <label for="day_id">曜日を選択してください:</label>
-                        <select name="day_id" id="day_id" required>
-                            @foreach($days as $day)
-                                <option value="{{ $day->id }}">{{ $day->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <input type="submit" value="この内容で決定する" style="display: inline-block; background-color: #35a9b4; color: white; padding: 5px 10px; border: 1px solid white; border-radius: 4px; cursor: pointer;"/>
+                    <input type="submit" value="この内容で決定する" class="myco-button">
                 </form>
-         
+                
                 <!-- 選択した画像を表示させる -->
                 <script>
                     document.getElementById('image').addEventListener('change', function(event) {
                         var reader = new FileReader();
                         reader.onload = function(){
                             var imagePreview = document.getElementById('imagePreview');
+                            var newImageSection = document.getElementById('newImageSection');
+        
                             imagePreview.src = reader.result;
                             imagePreview.style.display = 'block';
+                            newImageSection.style.display = 'block'
                         }
                         reader.readAsDataURL(event.target.files[0]);
                     });

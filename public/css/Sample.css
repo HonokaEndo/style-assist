@@ -17,8 +17,12 @@
     padding-left: 15rem; /* 左側のパディングをサイドバーの幅に合わせて設定 */
     padding-right: 2rem; /* 右側の余白 */
     background-color: #add8e6; /* 好きな色に変更 */
+    /*追加*/
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 中央揃え */
+    justify-content: center;
 }
-
 
 .fixed-size {
     width: 100px;
@@ -54,10 +58,15 @@
 }
 
 .post p {
+    font-family: 'Sawarabi Gothic', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap; /* 改行を維持して表示 */
+    color: #111827; /* 文字色 */
 }
+
 
 .centered-image {
     display: block;
@@ -240,4 +249,96 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して少し浮かせる */
     align-items: center; /* 画像とテキストを中央揃え */
     flex-direction: column; /* 縦に並べる */
+}
+
+/*文字のフォント変更*/
+body {
+    font-family: 'Sawarabi Gothic', sans-serif; /* Kiwi Maruフォントを使用 */
+    font-size: 18px; /* 基本のフォントサイズ */
+    color: #111827; /* 文字色 */
+}
+
+h4 {
+    font-family: 'Sawarabi Gothic', sans-serif; /* 見出しにも同じフォントを適用 */
+    font-weight: 700; /* 見出しを太字にする */
+    color: #111827; /* 文字色 */
+    margin-bottom: 20px; /* 見出しの下にスペースを追加 */
+    font-size: 40px !important; /* フォントサイズを強制的に設定 */
+}
+
+
+p {
+    font-family: 'Sawarabi Gothic', sans-serif; /* パラグラフにも同じフォントを適用 */
+    font-weight: 400; /* 通常の太さ */
+    line-height: 1.6; /* 行間を広げて読みやすく */
+    color: #111827; /* 文字色 */
+}
+
+/*ボタンを丸くする*/
+.rounded-button {
+    background-color: #35a9b4;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 15px; /* 角を丸める */
+    cursor: pointer;
+}
+
+/*削除ボタン*/
+.delete-button {
+    background-color: #EF4444;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 15px; /* 角を丸める */
+    cursor: pointer;
+}
+
+/*保存・削除画面のレイアウト*/
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 項目を中央揃え */
+    gap: 20px; /* 項目間のスペースを調整 */
+    width: auto; /* フォームの幅を自動調整 */
+    margin-top: 2rem;
+    margin-left: 7rem;
+}
+
+.image, .day {
+    display: flex;
+    align-items: center; /* 中央揃え */
+}
+
+.image-edit{
+    margin-top: 1rem;
+    margin-left: 7rem;
+    margin-right: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+}
+
+.image-preview {
+    margin-top: 5px;
+    margin-left: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+
+/*mycoで使われているボタン*/
+.myco-button {
+    background-color: #35a9b4;
+    margin-top: 5rem;
+    margin-left: 7rem !important;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 15px; /* 角を丸める */
+    cursor: pointer;
 }

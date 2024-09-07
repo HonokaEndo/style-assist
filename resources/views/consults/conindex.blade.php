@@ -9,14 +9,14 @@
                     <ul>
                         <li>
                             <img src="{{ asset('/image/in-icon.png') }}" alt="編集アイコン">
-                            <a href="/recommends/index">
+                            <a href="/consults/index">
                                 相談内容を
                                 <br>投稿する
                             </a>
                         </li>
                         <li>
                             <img src="{{ asset('/image/up-icon.png') }}" alt="編集アイコン">
-                            <a href="/recommends/delete">
+                            <a href="/consults/delete">
                                 相談内容を
                                 <br>編集する
                             </a>
@@ -27,17 +27,22 @@
                 <!--<h1>服の相談をする</h1>-->
                 <form action="/consults" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="body">
-                        <h2>相談内容</h2>
-                        <textarea name="consult[body]" placeholder="コメント"></textarea>
-                    </div>
-                    <div class="image">
-                        <input type="file" name="image" id="image">
+                    <div class="form-container">
+                        <div class="image">
+                            <label for="image">画像を選択してください:<br>
+                                <input type="file" name="image" id="image" required>
+                            </label>
+                        </div>
+                        <div class="body">
+                            <h2>相談内容</h2>
+                            <textarea name="comment" id="comment" placeholder="コメント" style="width: 400px; height: 150px;"></textarea>
+                        </div>
                     </div>
                     <div class="image-preview">
                         <img id="imagePreview" src="#" alt="選択した画像" style="display: none; max-width: 300px; max-height: 300px;">
                     </div>
-                    <input type="submit" value="この内容で決定する" style="display: inline-block; background-color: #35a9b4; color: white; padding: 5px 10px; border: 1px solid white; border-radius: 4px; cursor: pointer;"/>
+                    <br>
+                    <input type="submit" value="この内容で決定する" class="rounded-button">
                 </form>
                 <!-- 選択した画像を表示させる -->
                 <script>
@@ -45,8 +50,11 @@
                         var reader = new FileReader();
                         reader.onload = function(){
                             var imagePreview = document.getElementById('imagePreview');
+                            var newImageSection = document.getElementById('newImageSection');
+        
                             imagePreview.src = reader.result;
                             imagePreview.style.display = 'block';
+                            newImageSection.style.display = 'block'
                         }
                         reader.readAsDataURL(event.target.files[0]);
                     });

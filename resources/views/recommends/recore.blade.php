@@ -45,9 +45,9 @@
                     </div>
                     <div class="body">
                         <h2>コメント内容</h2>
-                        <textarea name="comment" placeholder="コメント"></textarea>
+                        <textarea name="comment" placeholder="コメント" style="width: 400px; height: 150px;"></textarea>
                     </div>
-                    <input type="submit" value="コメントを投稿する" style="display: inline-block; background-color: #35a9b4; color: white; padding: 5px 10px; border: 1px solid white; border-radius: 4px; cursor: pointer;"/>
+                    <input type="submit" value="コメントを投稿する" class="rounded-button">
                 </form>
             </div>
             
