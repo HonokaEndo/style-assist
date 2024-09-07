@@ -3,12 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-<<<<<<< Updated upstream
-        "build": "vite build"
-=======
         "build": "vite build",
         "heroku-postbuild": "npm run build"
->>>>>>> Stashed changes
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
@@ -25,4 +21,5 @@
         "vite": "^5.0.0",
         "vue": "^3.2.37"
     }
+    
 }
