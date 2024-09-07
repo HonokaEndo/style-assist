@@ -9,14 +9,14 @@
                     <ul>
                         <li>
                             <img src="{{ asset('/image/in-icon.png') }}" alt="編集アイコン">
-                            <a href="/recommends/index">
+                            <a href="/consults/index">
                                 相談内容を
                                 <br>投稿する
                             </a>
                         </li>
                         <li>
                             <img src="{{ asset('/image/up-icon.png') }}" alt="編集アイコン">
-                            <a href="/recommends/delete">
+                            <a href="/consults/delete">
                                 相談内容を
                                 <br>編集する
                             </a>
@@ -37,9 +37,9 @@
                     @csrf
                     <div class="body">
                         <h2>コメント内容</h2>
-                        <textarea name="comment" placeholder="コメント"></textarea>
+                        <textarea name="comment" placeholder="コメント" style="width: 400px; height: 150px;"></textarea>
                     </div>
-                    <input type="submit" value="コメントを投稿する" style="display: inline-block; background-color: #35a9b4; color: white; padding: 5px 10px; border: 1px solid white; border-radius: 4px; cursor: pointer;"/>
+                    <input type="submit" value="コメントを投稿する" class="rounded-button">
                 </form>
             </div>
             

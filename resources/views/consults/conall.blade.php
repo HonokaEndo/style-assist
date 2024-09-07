@@ -9,14 +9,14 @@
                     <ul>
                         <li>
                             <img src="{{ asset('/image/in-icon.png') }}" alt="編集アイコン">
-                            <a href="/recommends/index">
+                            <a href="/consults/index">
                                 相談内容を
                                 <br>投稿する
                             </a>
                         </li>
                         <li>
                             <img src="{{ asset('/image/up-icon.png') }}" alt="編集アイコン">
-                            <a href="/recommends/delete">
+                            <a href="/consults/delete">
                                 相談内容を
                                 <br>編集する
                             </a>
@@ -49,8 +49,7 @@
                             <br>
                             <!-- コメントするボタン -->
                             <form action="/consults/{{ $consult->id }}/comment" method="get" style="display: inline-block;">
-                                <input type="submit" value="コメントする" 
-                                       style="background-color: #35a9b4; color: white; padding: 5px 10px; border: 1px solid white; border-radius: 10px; cursor: pointer;">
+                                <input type="submit" value="コメントする" class="rounded-button">
                             </form>
                         </div>
                     @endforeach

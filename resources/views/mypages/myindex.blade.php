@@ -34,7 +34,8 @@
                             @if($coordination)
                                 <img src="{{ $coordination->image_url }}" alt="Image" class="fixed-high-size centered-image">
                             @else
-                                <p>写真はありません。</p>
+                                <p>写真が
+                                <br>ありません。</p>
                             @endif
                         </div>
                     @endforeach

@@ -46,13 +46,13 @@
                                     <!-- 編集ボタン -->
                                     <form action="{{ route('recommend.edit', ['recommend' => $recommend->id]) }}" method="GET" style="display:inline;">
                                         @csrf
-                                        <input type="submit" value="編集する" style="display: inline-block; background-color: #5bc0de; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;"/>
+                                        <input type="submit" value="編集する" class="rounded-button">
                                     </form>
                                     
                                     <!-- 削除ボタン -->
                                     <form action="{{ route('recommend.delete', ['recommend' => $recommend->id]) }}" method="POST" style="display:inline;">
                                         @csrf
-                                        <input type="submit" value="削除する" style="display: inline-block; background-color: #d9534f; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;"/>
+                                        <input type="submit" value="削除する" class="delete-button">
                                     </form>
                                 </div>
                             </div>
