@@ -32,6 +32,20 @@
         <div class="min-h-screen bg-background">
             @include('layouts.navigation')
 
+            <!-- ログインしている場合のみログアウトリンクを表示 -->
+            @if(Auth::check())
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    ログアウト
+                </a>
+            
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @endif
+
+
+
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
