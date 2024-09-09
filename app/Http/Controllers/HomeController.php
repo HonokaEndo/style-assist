@@ -7,6 +7,7 @@ use Cloudinary;
 use App\Models\Recommend;
 use App\Models\RecommendReview;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB; 
 
 
 class HomeController extends Controller
@@ -36,13 +37,15 @@ class HomeController extends Controller
         //     ->limit(5)
         //     ->get();
 
-        $topRecommends = Recommend::select('recommends.*')
-            ->selectRaw('(SELECT AVG(recommend_reviews.star) FROM recommend_reviews WHERE recommend_reviews.recommend_id = recommends.id AND recommend_reviews.deleted_at IS NULL) as average_rating')
-            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
-            ->orderByRaw('average_rating IS NULL, average_rating DESC') // NULLを後にし、評価がある投稿を優先
-            ->orderBy('created_at')
+        $topRecommends = Recommend::with('recommendReviews')
+            ->join(DB::raw('(SELECT recommend_id, AVG(star) as average_rating FROM recommend_reviews WHERE recommend_reviews.deleted_at IS NULL GROUP BY recommend_id) as review_avg'), 
+                  'recommends.id', '=', 'review_avg.recommend_id')
+            ->whereBetween('recommends.created_at', [$startOfWeek, $endOfWeek])
+            ->orderByRaw('review_avg.average_rating IS NULL, review_avg.average_rating DESC')
+            ->orderBy('recommends.created_at')
             ->limit(5)
             ->get();
+
 
 
         // ビューに $topRecommends 変数を渡す
