@@ -45,6 +45,7 @@ class HomeController extends Controller
             ->limit(5)
             ->get();
 
+
         // ビューに $topRecommends 変数を渡す
         return view('home.homeindex', compact('topRecommends'));
     } 
