@@ -40,22 +40,29 @@
 .posts {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* 各投稿の間に均等にスペースを設ける */
-    gap: 20px; /* 投稿間のスペースを調整 */
+    justify-content: flex-start;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px; /* 余白を追加 */
 }
 
 .post {
-    width: calc(33% - 20px); /* 横に3つ並べるための幅を設定（隙間分を引く） */
+    flex: 1 1 calc(33% - 20px); /* 幅を指定 */
+    max-width: 400px;
     box-sizing: border-box;
-    background-color: white; /* 必要に応じて背景色を設定 */
-    padding: 10px; /* 内側に余白を追加 */
-    border-radius: 15px; /* 角を丸める */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して少し浮かせる */
+    background-color: white;
+    padding: 20px; /* 十分な余白を追加 */
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; /* 縦に並べる */
-    align-items: center; /* 画像とテキストを中央揃え */
-    margin-bottom: 10px; /* 各投稿の間にスペースを追加 */
+    flex-direction: column;
+    align-items: center; /* 水平方向の中央揃え */
+    justify-content: center; /* 垂直方向の中央揃え */
+    text-align: center; /* テキストも中央揃え */
 }
+
 
 .post p {
     font-family: 'Sawarabi Gothic', sans-serif;

@@ -39,7 +39,7 @@
                         <div class="image-edit">
                             <!-- "変更する画像"のファイル選択と画像プレビュー -->
                             <label for="image">変更する画像選択してください:<br>
-                                <input type="file" name="image" id="image" required><br>
+                                <input type="file" name="image" id="image"><br> <!-- 'required'を削除 -->
                                 <div id="newImageSection" style="display: none; margin-top: 1rem;"><br>
                                     <img id="imagePreview" src="#" alt="選択した画像" style="max-width: 300px; max-height: 300px; margin-left: 100px;"/>
                                 </div>
