@@ -39,8 +39,7 @@ class HomeController extends Controller
         $topRecommends = Recommend::select('recommends.*')
             ->selectRaw('(SELECT AVG(recommend_reviews.star) FROM recommend_reviews WHERE recommend_reviews.recommend_id = recommends.id AND recommend_reviews.deleted_at IS NULL) as average_rating')
             ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
-            ->havingRaw('average_rating > 0')
-            ->orderByDesc('average_rating')
+            ->orderByRaw('average_rating IS NULL, average_rating DESC') // NULLを後にし、評価がある投稿を優先
             ->orderBy('created_at')
             ->limit(5)
             ->get();
