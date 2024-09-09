@@ -110,22 +110,22 @@ class ConsultController extends Controller
     
     public function update(Request $request, Consult $consult)
     {
-        $request->validate([
-            'consult.body' => 'required|string',
-        ]);
-    
-        $input = $request['consult'];
-    
-        // 画像の更新があれば、Cloudinaryにアップロード
+        // 画像がアップロードされているかを確認
         if ($request->hasFile('image')) {
-            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
-            $input['image_url'] = $image_url;
+            // 新しい画像を保存
+            $imagePath = $request->file('image')->store('images', 'public');
+            $consult->image_url = $imagePath;
         }
     
-        $consult->update($input);
+        // 相談内容を更新
+        $consult->body = $request->input('consult.body');
+        
+        // 更新を保存
+        $consult->save();
     
-        return redirect()->route('consult.deleteForm')->with('success', '投稿が更新されました！');
+        return redirect()->route('consult.deleteForm')->with('success', '投稿が更新されました。');
     }
+
 
 
 }
