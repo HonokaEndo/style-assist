@@ -26,10 +26,20 @@ class HomeController extends Controller
         //     ->limit(5)
         //     ->get();
         
-        $topRecommends = Recommend::with('recommendReviews')
-            ->withAvg('recommendReviews as average_rating', 'star')
-            ->whereBetween('created_at', [$startOfWeek, $endOfWeek]) // 現在の週に投稿されたもののみ
-            ->having('average_rating', '>', 0) // 評価が0より大きいもののみ表示
+        // 2回目の挑戦
+        // $topRecommends = Recommend::with('recommendReviews')
+        //     ->withAvg('recommendReviews as average_rating', 'star')
+        //     ->whereBetween('created_at', [$startOfWeek, $endOfWeek]) // 現在の週に投稿されたもののみ
+        //     ->having('average_rating', '>', 0) // 評価が0より大きいもののみ表示
+        //     ->orderByDesc('average_rating')
+        //     ->orderBy('created_at')
+        //     ->limit(5)
+        //     ->get();
+
+        $topRecommends = Recommend::select('recommends.*')
+            ->selectRaw('(SELECT AVG(recommend_reviews.star) FROM recommend_reviews WHERE recommend_reviews.recommend_id = recommends.id AND recommend_reviews.deleted_at IS NULL) as average_rating')
+            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->havingRaw('average_rating > 0')
             ->orderByDesc('average_rating')
             ->orderBy('created_at')
             ->limit(5)
