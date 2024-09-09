@@ -27,7 +27,7 @@
                 
             <div class="evaluationbar">
                 @if($recommend->image_url)
-                    <img src="{{ $recommend->image_url }}" alt="投稿された画像">
+                    <img src="{{ $recommend->image_url }}" alt="投稿された画像" style="max-width: 300px; max-height: 300px;">
                 @endif
                 <br>
                 <p>{{ $recommend->body }}</p>

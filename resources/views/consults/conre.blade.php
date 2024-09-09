@@ -27,7 +27,7 @@
                 
             <div class="evaluationbar">
                 @if($consult->image_url)
-                    <img src="{{ $consult->image_url }}" alt="投稿された画像">
+                    <img src="{{ $consult->image_url }}" alt="投稿された画像" style="max-width: 300px; max-height: 300px;">
                 @endif
                 <br>
                 <p>{{ $consult->body }}</p>
@@ -47,16 +47,16 @@
             <div class="commentsbar">
                 <h2>コメント一覧</h2>
                 @foreach($comments as $comment)
+                    @if(is_null($comment->parent_id))
                     <div class="comment">
                         <p><strong>{{ $comment->user->name }}:</strong> {{ $comment->comment }}</p>
-            
+
                         <!-- 返信ボタン -->
                         <a href="#" onclick="document.getElementById('reply-form-{{ $comment->id }}').style.display='block'; return false;">返信する</a>
                         <form id="reply-form-{{ $comment->id }}" action="{{ route('consult.reply', ['consult' => $consult->id, 'review' => $comment->id]) }}" method="POST" style="display: none;">
                             @csrf
                             <textarea name="comment" placeholder="コメントを入力してください"></textarea>
                             <input type="submit" value="返信する" style="display: inline-block; background-color: #35a9b4; color: white; padding: 5px 10px; border: 1px solid white; border-radius: 4px; cursor: pointer;"/>
-            
                         </form>
 
                         <!-- 返信コメントを表示 -->
@@ -66,6 +66,7 @@
                             </div>
                         @endforeach
                     </div>
+                    @endif
                 @endforeach
             </div>
         </div>
