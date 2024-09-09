@@ -34,7 +34,7 @@
                         </div>
                         <div class="body">
                             <h2>おすすめ内容</h2>
-                            <textarea name="comment" id="comment" placeholder="コメント" style="width: 400px; height: 150px;"></textarea>
+                            <textarea name="recommend[body]" id="comment" placeholder="コメント" style="width: 400px; height: 150px;"></textarea>
                         </div>
                     </div>
                     <div class="image-preview">

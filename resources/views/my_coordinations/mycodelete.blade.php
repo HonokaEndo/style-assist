@@ -45,21 +45,24 @@
                             </label>
                         </form>
                     </div>
+
                     @if(isset($my_coordination))
                         <div class="image-preview">
                             <label>選択された曜日の画像<br>
-                                <img src="{{ $my_coordination->image_url }}" alt="選択された画像">
-                            </lavel>
+                                <img src="{{ $my_coordination->image_url }}" alt="選択された画像" style="max-width: 300px; max-height: 300px;">
+                            </label>
                         </div>
+
+                        <!-- 削除フォーム -->
                         <form action="/my_coordinations/delete" method="POST">
                             @csrf
                             <input type="hidden" name="day_id" value="{{ $my_coordination->day_id }}">
+                            <input type="submit" value="この内容を削除する" class="myco-button"/>
                         </form>
                     @elseif(isset($selectedDay))
-                        <lavel>写真が入っていません。</label>
+                        <label>写真が入っていません。</label>
                     @endif
                 </div>
-                <input type="submit" value="この内容を削除する" class="myco-button"/>
             </div>
         </div>
     </div>
