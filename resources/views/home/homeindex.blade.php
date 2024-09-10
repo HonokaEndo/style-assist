@@ -9,7 +9,7 @@
                     <ul>
                         <li>
                             <img src="{{ asset('image/mypage-icon.png') }}" alt="Home Icon">
-                            <a href="/" class="/home">
+                            <a href="/mypage" class="text-black">
                                 マイページ
                             </a>
                         </li>
