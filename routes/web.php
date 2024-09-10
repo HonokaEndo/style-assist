@@ -23,13 +23,9 @@ Route::get('/', function () {
     return view('welcome'); // ウェルカムページを表示
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/home',[HomeController::class,'index'])->name('home');
 
-Route::get('/', [MyPageController::class, 'index'])->name('/');
+Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage');
 
 Route::get('/recommends/all', [RecommendController::class, 'all'])->name('/recommends/all');
 Route::get('/recommends/{recommend}/comment', [RecommendController::class, 'commentForm'])->name('recommend.commentForm');

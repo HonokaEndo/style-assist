@@ -16,7 +16,7 @@
                         <img src="{{ asset('image/home-icon.png') }}" alt="Home Icon" class="w-5 h-5 me-2">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('/')" :active="request()->routeIs('/')" class="no-underline flex items-center">
+                    <x-nav-link :href="route('mypage')" :active="request()->routeIs('mypage')" class="no-underline flex items-center">
                         <img src="{{ asset('image/mypage-icon.png') }}" alt="Mypage Icon" class="w-5 h-5 me-2">
                         {{ __('MyPage') }}
                     </x-nav-link>
