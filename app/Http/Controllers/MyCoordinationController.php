@@ -49,7 +49,7 @@ class MyCoordinationController extends Controller
         // MyCoordinationモデルにデータを保存
         $my_coordination->fill($input)->save();
     
-        return redirect('/');
+        return redirect('/mypage');
     }
  
     public function showDeleteForm(Request $request)
@@ -72,7 +72,7 @@ class MyCoordinationController extends Controller
     
         if ($my_coordination) {
             $my_coordination->delete();
-            return redirect('/');
+            return redirect('/mypage');
         } else {
             return back()->with('error', '指定された曜日には削除可能な画像がありません。');
         }
