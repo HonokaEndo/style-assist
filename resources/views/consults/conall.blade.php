@@ -42,6 +42,11 @@
                     @foreach($consults as $consult)
                         <div class="post">
                             @if($consult->image_url)
+                                <!--アイコンと、ユーザー名を横に並べるためのタグ-->
+                                <div class="user-info">
+                                    <img src="{{ asset('image/user-icon.png') }}" class="user-icon" alt="{{ $consult->user->name }}のアイコン">
+                                    <p>{{ $consult->user->name }}</p>
+                                </div>
                                 <img src="{{ $consult->image_url }}" alt="投稿された画像" class="fixed-size centered-image">
                             @endif
                             <br>

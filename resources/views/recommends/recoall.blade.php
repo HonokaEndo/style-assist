@@ -43,6 +43,11 @@
                     @foreach($recommends as $recommend)
                         <div class="post">
                             @if($recommend->image_url)
+                                <!--アイコンと、ユーザー名を横に並べるためのタグ-->
+                                <div class="user-info">
+                                    <img src="{{ asset('image/user-icon.png') }}" class="user-icon" alt="{{ $recommend->user->name }}のアイコン">
+                                    <p>{{ $recommend->user->name }}</p>
+                                </div>
                                 <img src="{{ $recommend->image_url }}" alt="投稿された画像" class="fixed-size centered-image">
                             @endif
                             <br>
