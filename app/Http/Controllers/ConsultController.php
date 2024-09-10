@@ -9,7 +9,13 @@ use App\Models\User;
 use Cloudinary;
 
 class ConsultController extends Controller
-{
+{   
+    // ここに__constructメソッドを追加して、すべてのアクションに認証を要求
+    public function __construct()
+    {
+        $this->middleware('auth'); // 'auth'ミドルウェアを適用
+    }
+
     public function index()
     {
         $consults = Consult::all(); 
@@ -125,7 +131,4 @@ class ConsultController extends Controller
     
         return redirect()->route('consult.deleteForm')->with('success', '投稿が更新されました。');
     }
-
-
-
 }

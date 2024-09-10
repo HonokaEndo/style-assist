@@ -10,6 +10,12 @@ use Cloudinary;
 
 class RecommendController extends Controller
 {
+    // 認証ミドルウェアを適用
+    public function __construct()
+    {
+        $this->middleware('auth'); // 'auth'ミドルウェアを適用
+    }
+
     public function index()
     {
         $recommends = Recommend::all(); 
@@ -132,6 +138,4 @@ class RecommendController extends Controller
     
         return redirect()->route('recommend.deleteForm')->with('success', '投稿が更新されました！');
     }
-
-
 }

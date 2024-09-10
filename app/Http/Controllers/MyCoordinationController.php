@@ -9,7 +9,12 @@ use Cloudinary;
 
 class MyCoordinationController extends Controller
 {
-    
+    // ここで認証ミドルウェアを適用
+    public function __construct()
+    {
+        $this->middleware('auth'); // 'auth'ミドルウェアを適用
+    }
+
     public function index()
     {
         $my_coordinations = MyCoordination::all();
@@ -44,7 +49,6 @@ class MyCoordinationController extends Controller
         // MyCoordinationモデルにデータを保存
         $my_coordination->fill($input)->save();
     
-        
         return redirect('/');
     }
  
@@ -72,9 +76,5 @@ class MyCoordinationController extends Controller
         } else {
             return back()->with('error', '指定された曜日には削除可能な画像がありません。');
         }
-        
-        
     }
-
-
 }
