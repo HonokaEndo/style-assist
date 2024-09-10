@@ -51,30 +51,40 @@ class MyCoordinationController extends Controller
     
         return redirect('/mypage');
     }
- 
+
     public function showDeleteForm(Request $request)
     {
         $days = Day::all(); // 全ての曜日を取得
         $selectedDay = $request->input('day_id');
         $my_coordination = null;
-    
-        if ($selectedDay) {
-            $my_coordination = MyCoordination::where('day_id', $selectedDay)->first();
-        }
         
+        if ($selectedDay) {
+            // 現在のユーザーが保存した写真だけを取得
+            $my_coordination = MyCoordination::where('day_id', $selectedDay)
+                                             ->where('user_id', auth()->id()) // ログインユーザーのIDでフィルタリング
+                                             ->first();
+        }
+    
         return view('my_coordinations.mycodelete', compact('days', 'my_coordination', 'selectedDay'));
     }
-    
+
+ 
     public function deleteByDay(Request $request)
     {
         $day_id = $request->input('day_id');
-        $my_coordination = MyCoordination::where('day_id', $day_id)->first();
-    
+        // ログインしているユーザーのIDと、保存されているユーザーIDが一致する画像を検索
+        $my_coordination = MyCoordination::where('day_id', $day_id)
+                                          ->where('user_id', auth()->id()) // 現在ログインしているユーザーのIDで絞り込み
+                                          ->first();
+        
         if ($my_coordination) {
+            // 自分が保存した画像が見つかった場合に削除を実行
             $my_coordination->delete();
-            return redirect('/mypage');
+            return redirect('/mypage')->with('success', '画像が削除されました。');
         } else {
+            // 他人の画像を削除しようとした場合や、画像が見つからなかった場合のエラーメッセージ
             return back()->with('error', '指定された曜日には削除可能な画像がありません。');
         }
     }
+
 }

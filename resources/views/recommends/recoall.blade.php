@@ -56,7 +56,7 @@
                             <!-- コメントするボタン -->
                             <form action="/recommends/{{ $recommend->id }}/comment" method="get" style="display: inline-block;">
                                 <input type="submit" value="コメントする" class="rounded-button">
-                                </form>
+                            </form>
                         </div>
                     @endforeach
                 </div>
