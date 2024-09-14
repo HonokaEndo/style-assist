@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); 
             $table->string('body');
             $table->string('image_url'); 
-            $table->integer('star')->nullable(); // NULLを許可に変更
             $table->timestamps();
             $table->softDeletes();
         });
