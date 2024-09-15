@@ -1,6 +1,6 @@
 🌟# FashionJoy
 
-![Title Image](image/FashionJoy.jpg)
+![Title Image](public.image/FashionJoy.jpg)
 
 このアプリは、ファッションを通じたコミュニティーを提供します。
 
