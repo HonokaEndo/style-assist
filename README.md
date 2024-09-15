@@ -1,4 +1,4 @@
-🌟# FashionJoy
+### 🌟FashionJoy
 
 ![Title Image](public/image/FashionJoy.jpg)
 
@@ -30,8 +30,8 @@
 - MariaDB
 
 ## ER図
-![ER図](image/ER図.drawio.png)
+![ER図](public/image/ER図.drawio.png)
 
 ## AWS図
-![構成図](path_to_your_image/ER図.png)
+![構成図](path_to_your_image/)
 
