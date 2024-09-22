@@ -44,3 +44,6 @@
 
 ## AWS図
 ![構成図](public/image/infra-diagram.png)
+
+## 操作画面
+![操作図](public/image/operation_document.xlsx)
