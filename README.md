@@ -46,4 +46,4 @@
 ![構成図](public/image/infra-diagram.png)
 
 ## 操作画面
-![操作図](public/image/operation_document.pdf)
+[操作図](public/image/operation_document.pdf)
