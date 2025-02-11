@@ -19,33 +19,34 @@ class MyCoordinationController extends Controller
 
     public function store(Request $request, MyCoordination $my_coordination)
     {
-        // 現在のユーザーIDと曜日IDで既存の写真を確認
-        $existingCoordination = MyCoordination::where('user_id', auth()->id())
-                                              ->where('day_id', $request->input('day_id'))
-                                              ->first();
+        try {
+            $existingCoordination = MyCoordination::where('user_id', auth()->id())
+                ->where('day_id', $request->input('day_id'))
+                ->first();
     
-        if ($existingCoordination) {
-            // 既に写真が保存されている場合のエラーメッセージ
-            return back()->withErrors(['day_id' => 'この曜日にはすでに写真が保存されています。写真を削除してから新しい写真を保存してください。']);
+            if ($existingCoordination) {
+                return back()->withErrors(['day_id' => 'この曜日にはすでに写真が保存されています。']);
+            }
+    
+            $input = $request->all();
+            $input['user_id'] = auth()->id();
+
+            if ($request->hasFile('image')) {
+                $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+                $input['image_url'] = $image_url;
+            } else {
+                return back()->withErrors(['image' => '画像がアップロードされていません。']);
+            }
+
+            $my_coordination->fill($input)->save();
+
+            return redirect('/');
+        } catch (Exception $e) {
+            Log::error('MyCoordinationController@store Error: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'データを保存できませんでした。']);
+        } finally {
+            Log::info('MyCoordinationController@store 処理が終了しました。');
         }
-    
-        // フォームからの入力データを取得
-        $input = $request->all();
-        $input['user_id'] = auth()->id(); // 現在認証されているユーザーのIDを設定
-    
-        // 画像をCloudinaryにアップロードし、URLを取得
-        if ($request->hasFile('image')) {
-            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
-            $input['image_url'] = $image_url; // 'picture' フィールドに画像のURLを設定
-        } else {
-            return back()->withErrors(['image' => '画像がアップロードされていません。']);
-        }
-    
-        // MyCoordinationモデルにデータを保存
-        $my_coordination->fill($input)->save();
-    
-        
-        return redirect('/');
     }
  
     public function showDeleteForm(Request $request)

@@ -18,18 +18,26 @@ class RecommendController extends Controller
 
     public function store(Request $request, Recommend $recommend)
     {
-        $request->validate([
-            'recommend.body' => 'required|string',
-        ]);
-        
-        $input = $request['recommend'];
-        $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
-        $input += [
-            'image_url' => $image_url,
-            'user_id' => auth()->id(),
-        ]; 
-        $recommend = Recommend::create($input);
-        return redirect('/recommends/all');
+        try {
+            $request->validate([
+                'recommend.body' => 'required|string',
+            ]);
+    
+            $input = $request['recommend'];
+            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+            $input += [
+                'image_url' => $image_url,
+                'user_id' => auth()->id(),
+            ];
+
+            Recommend::create($input);
+            return redirect('/recommends/all');
+        } catch (Exception $e) {
+            Log::error('RecommendController@store Error: ' . $e->getMessage());
+            return back()->withErrors(['error' => '投稿に失敗しました。']);
+        } finally {
+            Log::info('RecommendController@store 処理が終了しました。');
+        }
     }
 
     public function all(Request $request)

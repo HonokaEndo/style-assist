@@ -18,18 +18,26 @@ class ConsultController extends Controller
 
     public function store(Request $request, Consult $consult)
     {
-        $request->validate([
-            'consult.body' => 'required|string',
-        ]);
-        
-        $input = $request['consult'];
-        $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
-        $input += [
-            'image_url' => $image_url,
-            'user_id' => auth()->id(),
-        ]; 
-        $consult = Consult::create($input);
-        return redirect('/consults/all');
+        try {
+            $request->validate([
+                'consult.body' => 'required|string',
+            ]);
+    
+            $input = $request['consult'];
+            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+            $input += [
+                'image_url' => $image_url,
+                'user_id' => auth()->id(),
+            ];
+
+            Consult::create($input);
+            return redirect('/consults/all');
+        } catch (Exception $e) {
+            Log::error('ConsultController@store Error: ' . $e->getMessage());
+            return back()->withErrors(['error' => '投稿に失敗しました。']);
+        } finally {
+            Log::info('ConsultController@store 処理が終了しました。');
+        }
     }
 
     public function all(Request $request)

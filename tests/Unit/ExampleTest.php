@@ -13,4 +13,14 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
     }
+    
+    
+    // 例外が発生するテスト
+    /**
+     public function test_that_true_is_true(): 
+       ・例外の発生した時
+       
+       ・assert#####()
+    
+    */
 }
